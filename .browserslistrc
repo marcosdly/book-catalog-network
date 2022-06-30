@@ -1,0 +1,5 @@
+# Browsers that we support
+# Every line is a browserslist querry
+# Check https://github.com/browserslist/browserslist 
+
+supports es5

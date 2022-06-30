@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [ // preset-env
+      "@babel/preset-env",
+      { // options for preset-env
+        "modules": "auto",
+        "useBuiltIns": "entry",
+        "corejs": {
+          "version": "3.23",
+          "proposals": false
+        },
+        "forceAllTransforms": false
+      }
+    ]
+  ]
+  // "plugins": []
+}
