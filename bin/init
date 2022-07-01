@@ -1,0 +1,49 @@
+"use strict";
+const copy = require("recursive-copy");
+const path = require("path");
+const fs = require("fs");
+
+/**
+ * Path variables
+ */
+const projectRootPath = path.normalize(path.join(__dirname, ".."));
+const templatesPath = path.normalize(path.join(__dirname, "..", "templates"));
+
+/**
+ * Copying example environment file to actual environment files.
+ */
+console.log(":: Copying template files")
+
+/**
+ * Function to handle errors thrown by the copy function provided by 'recursive-copy'.
+ * @param {Object} err
+ * @returns {void} 
+ */
+const copyErrorHandler = (err) => {
+  // If file/directory already exists, log a message containing its name and saying that
+  if (err.code === "EEXIST") {
+    try {
+      const dirElementStats = fs.lstatSync(path.resolve(err.path)); // Can throw an error
+      if (dirElementStats.isDirectory()) {
+        const dirName = path.basename(err.path);
+        console.log(`=> Directory '${dirName}' and its content already exists in target, skipping...`);
+      } else if (dirElementStats.isFile())
+        console.log(`=> File '${path.basename(err.path)}' already exist in target, skipping...`);
+    } catch (e) {
+      console.error(e);
+    }
+  } else
+    console.error(err);
+}
+
+copy(templatesPath, projectRootPath, {
+  overwrite: false,
+  filter: ["example.env"],
+  rename: (destFilePath) => path.join(path.dirname(destFilePath), "prod.env"),
+}).catch(copyErrorHandler);
+
+copy(templatesPath, projectRootPath, {
+  overwrite: false,
+  filter: ["example.env"],
+  rename: (destFilePath) => path.join(path.dirname(destFilePath), "dev.env"),
+}).catch(copyErrorHandler);

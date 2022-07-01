@@ -2,8 +2,7 @@
 
 ## Directories Meaning
 
-  - `dev`: Development version of assets.
-  - `prod`: Production version of assets.
+- `bin`: Binaries and scripts.
 - `dist`: Root folder for bundled code.
   - `dev`: Code for testing and debugging.
   - `prod`: Production code.
@@ -18,6 +17,7 @@
 
 ## Files Meaning
 
+- `bin/init`: Script to setup development environment (after `npm install`).
 - `.babelrc.json`: Babel configuration for its respective webpack loader.
 - `.browserslistrc`: Browserslist queries used by Babel to get ecmascript version to which compile.
 - `webpack.config.js`: Webpack configuration.

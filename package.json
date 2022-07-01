@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "proj:init": "npm install && node ./bin/init",
     "build:dev": "webpack --node-env development",
     "build:prod": "webpack --node-env production"
   },
