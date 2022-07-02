@@ -39,6 +39,7 @@ const webpagesGenerator = () => {
   const scriptsPath = {};
   const whitelistedJSFiles4Bundling = [
     "script.js",
+    "script.jsx"
   ];
   let envConfig;
 
@@ -106,6 +107,7 @@ const webAssets = webpagesGenerator();
 const configTemplate = {
   entry: { ...webAssets.scripts },
   target: ["web", "es5"],
+  resolve: { extensions: [".js", ".jsx"] },
 
   plugins: [
     ...webAssets.pluginInstances,
@@ -123,7 +125,7 @@ const configTemplate = {
   module: {
     rules: [
       { // babel-loader
-        test: /\.m?js$/,
+        test: /\.m?jsx?$/,
         exclude: /(node_modules)/,
         use: {
           loader: "babel-loader",
@@ -135,7 +137,7 @@ const configTemplate = {
             cacheCompression: true
           }
         }
-      }
+      },
     ]
   }
 };
