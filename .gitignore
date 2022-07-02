@@ -5,6 +5,9 @@ package-lock.json
 # Build directory
 dist/
 
+# Shared static assets directory
+public/
+
 # Specific configurations
 /dev.env
 /prod.env

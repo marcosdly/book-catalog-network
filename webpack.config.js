@@ -142,6 +142,22 @@ const configTemplate = {
   }
 };
 
+const devServerConfigTemplate = {
+  client: {
+    logging: "error",
+    progress: true,
+    reconnect: true
+  },
+  static: {
+    directory: path.resolve(__dirname, "public"),
+    watch: true,
+    publicPath: "/"
+  },
+  hot: true,
+  open: true,
+  server: "https"
+};
+
 module.exports = (env, argv) => {
   if (process.env.NODE_ENV === "production") {
     return {
@@ -156,8 +172,14 @@ module.exports = (env, argv) => {
       },
     };
   } else {
+    if (env.page) {
+      devServerConfigTemplate.watchFiles = [`./src/pages/${env.page.toLowerCase()}/**/*`];
+      devServerConfigTemplate.port = env.port ? Number(env.port) : 8080;
+    }
+
     return {
       ...configTemplate,
+      devServer: { ...devServerConfigTemplate },
       devtool: "eval",
       output: {
         path: path.resolve(__dirname, "dist", "dev"),
